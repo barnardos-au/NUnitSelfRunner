@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Version>1.0.0</Version>
+        <Title>NUnitSelfRunner</Title>
+        <Authors>Neil Dobson</Authors>
+        <Company>Barnardos Australia</Company>
+        <Description>A shim to turn a class library containing NUnit fixtures into a console app which can self-run tests</Description>
+        <PackageProjectUrl>https://github.com/barnardos-au/NUnitSelfRunner</PackageProjectUrl>
+        <PackageTags>nunit test testing runner</PackageTags>
+        <Copyright>Copyright ©2020 Barnardos Australia</Copyright>
+        <PackageIcon>barnardos.png</PackageIcon>
+        <RepositoryUrl>https://github.com/barnardos-au/NUnitSelfRunner</RepositoryUrl>
+        <AssemblyName>NUnitSelfRunner</AssemblyName>
+        <PackageId>NUnitSelfRunner</PackageId>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <RootNamespace>NUnitSelfRunner</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CommandLineParser" Version="2.7.82" />
+        <PackageReference Include="NUnit.Engine" Version="3.10.0" />
+        <PackageReference Include="NUnit.Engine.Api" Version="3.10.0" />
+        <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\Images\barnardos.png" Pack="true" PackagePath="\"/>
+        <None Include="..\..\LICENSE" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+
+</Project>
