@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using CommandLine;
 using NUnit.Engine;
 using NUnit.Engine.Listeners;
@@ -37,10 +38,28 @@ namespace NUnitSelfRunner
             var testEngine = TestEngineActivator.CreateInstance();
             var filterService = testEngine.Services.GetService<ITestFilterService>();
             var testFilterBuilder = filterService.GetTestFilterBuilder();
+
+            if (!string.IsNullOrEmpty(options.TestListFile))
+            {
+                var fileInfo = new FileInfo(options.TestListFile);
+                if (!fileInfo.Exists) throw new ApplicationException($"File: {options.TestListFile} not found");
+                
+                var fileStream = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read);
+                using (var streamReader = new StreamReader(fileStream))
+                {
+                    while (!streamReader.EndOfStream)
+                    {
+                        var test = streamReader.ReadLine();
+                        testFilterBuilder.AddTest(test);
+                    }
+                }
+            }
+
             if (!string.IsNullOrEmpty(options.Filter))
             {
                 testFilterBuilder.SelectWhere(options.Filter);
             }
+
             var testFilter = testFilterBuilder.GetFilter();
 
             using (var testRunner = testEngine.GetRunner(testPackage))

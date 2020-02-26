@@ -14,6 +14,9 @@ namespace NUnitSelfRunner
         [Option('f', "filter", Required = false, HelpText = "Test filter selection")]
         public string Filter { get; set; }
 
+        [Option('l', "testlist", Required = false, HelpText = "The name (or path) of a file containing a list of tests to run or explore, one per line")]
+        public string TestListFile { get; set; }
+
         [Option('s', "settings", Required = false, HelpText = "Settings")]
         public IEnumerable<string> SettingArgs { get; set; }
 
