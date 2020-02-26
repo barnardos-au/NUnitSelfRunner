@@ -107,6 +107,8 @@ Copyright (C) 2020 SampleTests
   -c, --console     (Default: false) Display concise console output
 
   -f, --filter      Test filter selection
+  
+  -l, --testlist    The name (or path) of a file containing a list of tests to run or explore, one per line
 
   -s, --settings    Settings
 
@@ -128,6 +130,7 @@ The following is a description of the CLI arguments
 | -e | --explore | Explore (display) tests. See --explore argument in [NUnit docs](https://github.com/nunit/docs/wiki/Console-Command-Line) |
 | -c | --console | Simple output format which displays a line for each test showing test name and its result: Passed, Failed, Ignored etc. |
 | -f | --filter | Allows filtering tests to run or explore. See --where argument in [NUnit docs](https://github.com/nunit/docs/wiki/Console-Command-Line) |
+| -l | --testlist | The name (or path) of a file containing a list of tests to run or explore, one per line |
 | -s | --settings | Adds settings as key/value pairs to NUnit test engine. Can be repeated. Example: `-s NumberOfTestWorkers=4` |
 | -t | --teamcity | Outputs in TeamCity Service Message format |
 | -r | --redis | Sends output to Redis queue (channel). Specify redis host connection. Example: `-r localhost:6379` |
