@@ -114,6 +114,8 @@ Copyright (C) 2020 SampleTests
 
   -t, --teamcity    (Default: false) Use TeamCity event listener
 
+  -o, --outputfile  Name of file to output console
+  
   -r, --redis       Redis Host
 
   -q, --queue       (Default: test-logs) Queue Name
@@ -133,6 +135,7 @@ The following is a description of the CLI arguments
 | -l | --testlist | The name (or path) of a file containing a list of tests to run or explore, one per line |
 | -s | --settings | Adds settings as key/value pairs to NUnit test engine. Can be repeated. Example: `-s NumberOfTestWorkers=4` |
 | -t | --teamcity | Outputs in TeamCity Service Message format |
+| -o | --output | Name of file to output console |
 | -r | --redis | Sends output to Redis queue (channel). Specify redis host connection. Example: `-r localhost:6379` |
 | -q | --queue | Used in conjunction with `-r` to specify the queue (channel) name. Default `test-logs` |
 
