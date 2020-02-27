@@ -23,6 +23,9 @@ namespace NUnitSelfRunner
         [Option('t', "teamcity",  Default = false,  HelpText = "Use TeamCity event listener")]
         public bool TeamCity { get; set; }
 
+        [Option('o', "outputfile", Required = false, HelpText = "Name of file to output console")]
+        public string OutputFile { get; set; }
+
         [Option('r', "redis", Required = false, HelpText = "Redis Host")]
         public string RedisHost { get; set; }
 

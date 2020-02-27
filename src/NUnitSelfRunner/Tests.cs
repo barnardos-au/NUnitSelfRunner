@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using CommandLine;
 using NUnit.Engine;
 using NUnit.Engine.Listeners;
@@ -20,7 +19,7 @@ namespace NUnitSelfRunner
         
         public static void Run(string[] args, TextWriter textWriter = null)
         {
-            var tests = new Tests(textWriter ?? Console.Out);
+            var tests = new Tests(textWriter);
 
             Parser.Default.ParseArguments<Options>(args)
                 .WithParsed(tests.Start);
@@ -28,6 +27,16 @@ namespace NUnitSelfRunner
 
         private void Start(Options options)
         {
+            if (!string.IsNullOrEmpty(options.OutputFile))
+            {
+                textWriter = new StreamWriter(options.OutputFile);
+            }
+            else
+            {
+                if (textWriter == null)
+                    textWriter = Console.Out;
+            }
+
             var assembly = System.Reflection.Assembly.GetEntryAssembly();
             var testPackage = new TestPackage(assembly.Location);
             foreach (var setting in options.GetSettings())
@@ -76,6 +85,11 @@ namespace NUnitSelfRunner
                     testRunner.Run(testEventListener, testFilter);
                 }
             }
+
+            if (!string.IsNullOrEmpty(options.OutputFile))
+            {
+                textWriter.Close();
+            }
         }
 
         private ITestEventListener GetEventTestListener(Options options)
@@ -89,6 +103,7 @@ namespace NUnitSelfRunner
             }
 
             ITestEventListener testEventListener = new DefaultEventListener(textWriter);
+
             if (options.Explore)
             {
                 return testEventListener;
