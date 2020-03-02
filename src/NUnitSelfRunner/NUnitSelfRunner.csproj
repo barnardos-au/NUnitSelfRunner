@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;net472</TargetFrameworks>
-        <Version>1.0.3</Version>
+        <Version>1.0.4</Version>
         <Title>NUnitSelfRunner</Title>
         <Authors>Neil Dobson</Authors>
         <Company>Barnardos Australia</Company>
@@ -20,14 +20,14 @@
 
     <ItemGroup>
         <PackageReference Include="CommandLineParser" Version="2.7.82" />
-        <PackageReference Include="NUnit.Engine" Version="3.10.0" />
-        <PackageReference Include="NUnit.Engine.Api" Version="3.10.0" />
+        <PackageReference Include="NUnit.Engine" Version="3.11.1" />
+        <PackageReference Include="NUnit.Engine.Api" Version="3.11.1" />
         <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="..\Images\barnardos.png" Pack="true" PackagePath="\"/>
-        <None Include="..\..\LICENSE" Pack="true" PackagePath="\"/>
+        <None Include="..\Images\barnardos.png" Pack="true" PackagePath="\" />
+        <None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
     </ItemGroup>
 
 </Project>
