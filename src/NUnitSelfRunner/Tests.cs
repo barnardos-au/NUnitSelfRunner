@@ -27,15 +27,8 @@ namespace NUnitSelfRunner
 
         private void Start(Options options)
         {
-            if (!string.IsNullOrEmpty(options.OutputFile))
-            {
-                textWriter = new StreamWriter(options.OutputFile);
-            }
-            else
-            {
-                if (textWriter == null)
-                    textWriter = Console.Out;
-            }
+            if (textWriter == null)
+                textWriter = Console.Out;
 
             var assembly = System.Reflection.Assembly.GetEntryAssembly();
             var testPackage = new TestPackage(assembly.Location);
@@ -73,26 +66,36 @@ namespace NUnitSelfRunner
 
             using (var testRunner = testEngine.GetRunner(testPackage))
             {
-                var testEventListener = GetEventTestListener(options);
+                var testEventListener = GetTestEventListener(options);
                 
                 if (options.Explore)
                 {
                     var result = testRunner.Explore(testFilter);
-                    testEventListener.OnTestEvent(result.OuterXml);
+                    var xml = result.OuterXml;
+                    testEventListener.OnTestEvent(xml);
+
+                    if (string.IsNullOrEmpty(options.OutputFile)) return;
+                    
+                    using (var fileWriter = new StreamWriter(options.OutputFile))
+                    {
+                        fileWriter.Write(xml);
+                    }
                 }
                 else
                 {
-                    testRunner.Run(testEventListener, testFilter);
+                    var result = testRunner.Run(testEventListener, testFilter);
+                    var xml = result.OuterXml;
+                    if (string.IsNullOrEmpty(options.OutputFile)) return;
+                    
+                    using (var fileWriter = new StreamWriter(options.OutputFile))
+                    {
+                        fileWriter.Write(xml);
+                    }
                 }
-            }
-
-            if (!string.IsNullOrEmpty(options.OutputFile))
-            {
-                textWriter.Close();
             }
         }
 
-        private ITestEventListener GetEventTestListener(Options options)
+        private ITestEventListener GetTestEventListener(Options options)
         {
             if (!string.IsNullOrEmpty(options.RedisHost))
             {
