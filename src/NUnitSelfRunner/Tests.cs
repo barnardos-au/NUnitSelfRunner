@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using CommandLine;
 using NUnit.Engine;
 using NUnit.Engine.Listeners;
@@ -11,15 +12,18 @@ namespace NUnitSelfRunner
     public class Tests
     {
         private TextWriter textWriter;
+        private readonly Assembly testFixtureAssembly;
 
-        public Tests(TextWriter textWriter)
+        public Tests(TextWriter textWriter, Assembly testFixtureAssembly)
         {
             this.textWriter = textWriter;
+
+            this.testFixtureAssembly = testFixtureAssembly ?? Assembly.GetEntryAssembly();
         }
         
-        public static void Run(string[] args, TextWriter textWriter = null)
+        public static void Run(string[] args, Assembly testFixtureAssembly = null, TextWriter textWriter = null)
         {
-            var tests = new Tests(textWriter);
+            var tests = new Tests(textWriter, testFixtureAssembly);
 
             Parser.Default.ParseArguments<Options>(args)
                 .WithParsed(tests.Start);
@@ -30,8 +34,7 @@ namespace NUnitSelfRunner
             if (textWriter == null)
                 textWriter = Console.Out;
 
-            var assembly = System.Reflection.Assembly.GetEntryAssembly();
-            var testPackage = new TestPackage(assembly.Location);
+            var testPackage = new TestPackage(testFixtureAssembly.Location);
             foreach (var setting in options.GetSettings())
             {
                 testPackage.AddSetting(setting.Key, setting.Value);

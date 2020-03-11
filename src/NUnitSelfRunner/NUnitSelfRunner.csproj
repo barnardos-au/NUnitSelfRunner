@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;net472</TargetFrameworks>
-        <Version>1.0.4</Version>
+        <Version>1.0.5</Version>
         <Title>NUnitSelfRunner</Title>
         <Authors>Neil Dobson</Authors>
         <Company>Barnardos Australia</Company>
